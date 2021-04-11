@@ -1,9 +1,1 @@
-[
-["index.html", "YOUR TITLE HERE Chapter 1 Introduction", " YOUR TITLE HERE YOUR NAMES HERE 2020-11-09 Chapter 1 Introduction "],
-["data-sources.html", "Chapter 2 Data sources", " Chapter 2 Data sources "],
-["data-transformation.html", "Chapter 3 Data transformation", " Chapter 3 Data transformation "],
-["missing-values.html", "Chapter 4 Missing values", " Chapter 4 Missing values "],
-["results.html", "Chapter 5 Results", " Chapter 5 Results "],
-["interactive-component.html", "Chapter 6 Interactive component", " Chapter 6 Interactive component "],
-["conclusion.html", "Chapter 7 Conclusion", " Chapter 7 Conclusion "]
-]
+[["index.html", "Recipe of Happiness Chapter 1 Introduction", " Recipe of Happiness Yiwei Ren 2021-04-11 Chapter 1 Introduction Happiness have Ben studied by many years. Governments in all different countries tried to quantified happiness to help them improve their residents overall satisfaction. The world happiness provides essential factors for quantifying happiness. That is freedom, social support, gdp per capita, percentage of corruption, generosity and healthy life expectancy. We will discuss the meaning of all these six factors in the data chapter. Since we gathered the key information for quantifying happiness, we can then introduce to our main question for this report. What is the recipe of happiness. However one might think the answer would just be the six factor we have introduced above. Although "],["data-sources.html", "Chapter 2 Data sources", " Chapter 2 Data sources "],["data-transformation.html", "Chapter 3 Data transformation", " Chapter 3 Data transformation "],["missing-values.html", "Chapter 4 Missing values", " Chapter 4 Missing values "],["results.html", "Chapter 5 Results", " Chapter 5 Results "],["interactive-component.html", "Chapter 6 Interactive component", " Chapter 6 Interactive component "],["conclusion.html", "Chapter 7 Conclusion", " Chapter 7 Conclusion "]]

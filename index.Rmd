@@ -1,9 +1,11 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAMES HERE"
+title: "Recipe of Happiness"
+author: "Yiwei Ren"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
 
 # Introduction
+Happiness have Ben studied by many years. Governments in all different countries tried to quantified happiness to help them improve their residents overall satisfaction. The world happiness provides essential factors for quantifying happiness. That is freedom, social support, gdp per capita, percentage of corruption, generosity and healthy life expectancy. We will discuss the meaning of all these six factors in the data chapter. 
 
+Since we gathered the key information for quantifying happiness, we can then introduce to our main question for this report. What is the recipe of happiness. However one might think the answer would just be the six factor we have introduced above. Although 
