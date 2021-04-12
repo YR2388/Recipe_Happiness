@@ -40,7 +40,7 @@ multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
 ```
 
 ```{R}
-
+library(tidyverse)
 library(visdat)
 data_all <- read.csv('df_all.csv')
 data_all%>%

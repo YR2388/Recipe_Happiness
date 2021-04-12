@@ -169,6 +169,9 @@ cor_graph <- function(df){
     
 } 
 
+df19_latin%>%
+  select(GDP.per.capita,Social.support,Healthy.life.expectancy,Freedom.to.make.life.choices,'Generosity', 
+                Perceptions.of.corruption, Happiness.score) -> df19_latin_cor
 
 library(GGally)
 ggpairs(df19_latin_cor, columns = 1:6) + ggtitle("Pairs Plot for the Six Factors")
