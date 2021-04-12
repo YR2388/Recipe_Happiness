@@ -1,1 +1,68 @@
 # Missing values
+```{r}
+##multiplot function from cookbook of r by Winston Chang
+multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
+  library(grid)
+
+  # Make a list from the ... arguments and plotlist
+  plots <- c(list(...), plotlist)
+
+  numPlots = length(plots)
+
+  # If layout is NULL, then use 'cols' to determine layout
+  if (is.null(layout)) {
+    # Make the panel
+    # ncol: Number of columns of plots
+    # nrow: Number of rows needed, calculated from # of cols
+    layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
+                    ncol = cols, nrow = ceiling(numPlots/cols))
+  }
+
+ if (numPlots==1) {
+    print(plots[[1]])
+
+  } else {
+    # Set up the page
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+
+    # Make each plot, in the correct location
+    for (i in 1:numPlots) {
+      # Get the i,j matrix positions of the regions that contain this subplot
+      matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
+
+      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
+                                      layout.pos.col = matchidx$col))
+    }
+  }
+}
+
+```
+
+```{R}
+
+library(visdat)
+data_all <- read.csv('df_all.csv')
+data_all%>%
+  filter(year == 2016)%>%
+  select('Happiness.score','GDP.per.capita','Social.support','Healthy.life.expectancy','Freedom.to.make.life.choices','Generosity','Perceptions.of.corruption') ->data_all1
+data_all%>%
+  filter(year == 2017)%>%
+  select('Happiness.score','GDP.per.capita','Social.support','Healthy.life.expectancy','Freedom.to.make.life.choices','Generosity','Perceptions.of.corruption') ->data_all2
+
+data_all%>%
+  filter(year == 2018)%>%
+  select('Happiness.score','GDP.per.capita','Social.support','Healthy.life.expectancy','Freedom.to.make.life.choices','Generosity','Perceptions.of.corruption') ->data_all3
+data_all%>%
+  filter(year == 2019)%>%
+  select('Happiness.score','GDP.per.capita','Social.support','Healthy.life.expectancy','Freedom.to.make.life.choices','Generosity','Perceptions.of.corruption') ->data_all4
+  
+vis_dat(data_all1) + ggtitle("NA Plot for Countries in 2016") ->p1 
+vis_dat(data_all2) + ggtitle("NA Plot for Countries in 2017") ->p2
+vis_dat(data_all3) + ggtitle("NA Plot for Countries in 2018") ->p3 
+vis_dat(data_all4) + ggtitle("NA Plot for Countries in 2019") ->p4 
+multiplot(p1, p2, p3, p4, cols = 2)
+```
+
+The plot shows the value type for each factors given each country. The observation indicates the number of countries. There are three type of data the plot can detect: they are numeric, character and NA. We can observe from the graph. All the values in our dataframe are numeric and there is no missing value found. 
+

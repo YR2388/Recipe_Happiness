@@ -3,5 +3,13 @@ data-sources
 data-transformation
 missing-values
 results
+section-1-what-is-important-variable-for-happiness-score
+for-the-top-10-countries-what-factor-is-the-most-influencing-happiness-score
+does-the-same-factor-have-a-high-correlation-with-the-happiness-scores-of-the-lower-ranked-countries
+section-2-what-is-the-success-of-latin-america
+why-we-study-latin-america
+feature-study-for-latin-america
+freedom-of-healthy-life-expandency
+section-3-time-series-analysis-for-some-special-countries
 interactive-component
 conclusion

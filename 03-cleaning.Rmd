@@ -1,1 +1,73 @@
 # Data transformation
+
+The following code is about the preprocessing of the data. What we do to the original data frame is that we select only the feature we need. These factors include Country, Happiness score, GDP per capita, social support, healthy life expectancy, freedom, generosity, and perceptions of corruption. Also, according to our plan, we would like to study the happiness secret of a country from different regions. We need to create a new column that shows the region the country belongs to. To do this, we need to use a library called countrycode. It will automatically assign a continent name to each country. 
+
+```{}
+library(tidyverse)
+df_2016 <- read_csv("2016.csv")
+df_2017 <- read_csv("2017.csv")
+df_2018 <- read_csv("2018.csv")
+df_2019 <- read_csv("2019.csv")
+library(countrycode)
+#add 'continent' as a new factor to our dataframe
+continent_2016 <- countrycode(df_2016$Country, 'country.name', 'continent')
+continent_2017 <- countrycode(df_2017$Country, 'country.name', 'continent')
+continent_2018 <- countrycode(df_2018$Country, 'country.name', 'continent')
+continent_2019 <- countrycode(df_2019$Country, 'country.name', 'continent')
+#Select the six factors along with coresponding country name and their happiness score.
+#..Also add the a new column to the dataframe called 'continent'.
+df_2016%>%
+dplyr::select('Country','Happiness score','GDP per capita','Social support','Healthy life expectancy','Freedom to make life choices','Generosity','Perceptions of corruption')%>%
+mutate(continent = continent_2016) -> df_16
+
+#..Do the same for 2017 to 2020 dataframe
+#..2017
+df_2017%>%
+dplyr::select('Country','Happiness score','GDP per capita','Social support','Healthy life expectancy','Freedom to make life choices','Generosity','Perceptions of corruption')%>%
+mutate(continent = continent_2017) -> df_17
+#..2018
+df_2018%>%
+dplyr::select('Country','Happiness score','GDP per capita','Social support','Healthy life expectancy','Freedom to make life choices','Generosity','Perceptions of corruption')%>%
+mutate(continent = continent_2018) -> df_18
+#..2019
+df_2019%>%
+dplyr::select('Country','Happiness score','GDP per capita','Social support','Healthy life expectancy','Freedom to make life choices','Generosity','Perceptions of corruption')%>%
+mutate(continent = continent_2019) -> df_19
+```
+
+Besides, we also want to combine all these four data frames. You can find the code in the 'df_16-19.ipynb' stored along with other data frames. We use python to do the combination. 
+
+```{}
+import pandas as pd 
+import numpy as np
+df_16 = pd.read_csv("df_16.csv")
+df_17 = pd.read_csv('df_17.csv')
+df_18 = pd.read_csv('df_18.csv')
+df_19 = pd.read_csv('df_19.csv')
+df_16['year'] = str(2016)
+df_17['year'] = str(2017)
+df_18['year'] = str(2018)
+df_19['year'] = str(2019)
+df_all = df_16.append([df_17, df_18, df_19], sort = False)
+df_all.drop(df_all.columns[0], axis = 1, inplace = True)
+df_all.head()
+```
+
+Moreover, in each year, the number of countries is different. Since we want to see the increasing amount of happiness score for each country, we need to make sure all the countries exist in these four years. Also, we need to order by country and year so that each country will be aligned with increasing years. 
+
+```{}
+select *
+from df16_19_all
+where country in (select country
+from df16_19_all
+group by country
+having COUNT(*) = 4)
+order by country,year
+```
+
+Last but not least, we also add six more columns in the df_all.csv. They are the percentage of each six factors within each happiness score. The code is following:
+```{}
+df_all%>%
+mutate(percentage.GDP = GDP.per.capita/Happiness.score)
+```
+

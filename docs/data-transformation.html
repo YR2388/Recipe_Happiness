@@ -24,7 +24,7 @@
 <meta name="author" content="Yiwei Ren" />
 
 
-<meta name="date" content="2021-04-11" />
+<meta name="date" content="2021-04-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -74,7 +74,18 @@
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#section-1-what-is-important-variable-for-happiness-score"><i class="fa fa-check"></i><b>5.1</b> Section 1: What is important variable for happiness score</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="results.html"><a href="results.html#for-the-top-10-countries-what-factor-is-the-most-influencing-happiness-score"><i class="fa fa-check"></i><b>5.1.1</b> For the top 10 countries, what factor is the most influencing happiness score</a></li>
+<li class="chapter" data-level="5.1.2" data-path="results.html"><a href="results.html#does-the-same-factor-have-a-high-correlation-with-the-happiness-scores-of-the-lower-ranked-countries"><i class="fa fa-check"></i><b>5.1.2</b> Does the same factor have a high correlation with the happiness scores of the lower-ranked countries?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#section-2-what-is-the-success-of-latin-america"><i class="fa fa-check"></i><b>5.2</b> Section 2: What is the success of Latin America?</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="results.html"><a href="results.html#why-we-study-latin-america"><i class="fa fa-check"></i><b>5.2.1</b> Why we study Latin America</a></li>
+<li class="chapter" data-level="5.2.2" data-path="results.html"><a href="results.html#feature-study-for-latin-america"><i class="fa fa-check"></i><b>5.2.2</b> Feature study for Latin America</a></li>
+<li class="chapter" data-level="5.2.3" data-path="results.html"><a href="results.html#freedom-of-healthy-life-expandency"><i class="fa fa-check"></i><b>5.2.3</b> Freedom of Healthy life expandency</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#section-3-time-series-analysis-for-some-special-countries"><i class="fa fa-check"></i><b>5.3</b> Section 3: Time Series Analysis for some special countries</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -98,6 +109,62 @@
             <section class="normal" id="section-">
 <div id="data-transformation" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> Data transformation</h1>
+<p>The following code is about the preprocessing of the data. What we do to the original data frame is that we select only the feature we need. These factors include Country, Happiness score, GDP per capita, social support, healthy life expectancy, freedom, generosity, and perceptions of corruption. Also, according to our plan, we would like to study the happiness secret of a country from different regions. We need to create a new column that shows the region the country belongs to. To do this, we need to use a library called countrycode. It will automatically assign a continent name to each country.</p>
+<pre><code>library(tidyverse)
+df_2016 &lt;- read_csv(&quot;2016.csv&quot;)
+df_2017 &lt;- read_csv(&quot;2017.csv&quot;)
+df_2018 &lt;- read_csv(&quot;2018.csv&quot;)
+df_2019 &lt;- read_csv(&quot;2019.csv&quot;)
+library(countrycode)
+#add &#39;continent&#39; as a new factor to our dataframe
+continent_2016 &lt;- countrycode(df_2016$Country, &#39;country.name&#39;, &#39;continent&#39;)
+continent_2017 &lt;- countrycode(df_2017$Country, &#39;country.name&#39;, &#39;continent&#39;)
+continent_2018 &lt;- countrycode(df_2018$Country, &#39;country.name&#39;, &#39;continent&#39;)
+continent_2019 &lt;- countrycode(df_2019$Country, &#39;country.name&#39;, &#39;continent&#39;)
+#Select the six factors along with coresponding country name and their happiness score.
+#..Also add the a new column to the dataframe called &#39;continent&#39;.
+df_2016%&gt;%
+dplyr::select(&#39;Country&#39;,&#39;Happiness score&#39;,&#39;GDP per capita&#39;,&#39;Social support&#39;,&#39;Healthy life expectancy&#39;,&#39;Freedom to make life choices&#39;,&#39;Generosity&#39;,&#39;Perceptions of corruption&#39;)%&gt;%
+mutate(continent = continent_2016) -&gt; df_16
+
+#..Do the same for 2017 to 2020 dataframe
+#..2017
+df_2017%&gt;%
+dplyr::select(&#39;Country&#39;,&#39;Happiness score&#39;,&#39;GDP per capita&#39;,&#39;Social support&#39;,&#39;Healthy life expectancy&#39;,&#39;Freedom to make life choices&#39;,&#39;Generosity&#39;,&#39;Perceptions of corruption&#39;)%&gt;%
+mutate(continent = continent_2017) -&gt; df_17
+#..2018
+df_2018%&gt;%
+dplyr::select(&#39;Country&#39;,&#39;Happiness score&#39;,&#39;GDP per capita&#39;,&#39;Social support&#39;,&#39;Healthy life expectancy&#39;,&#39;Freedom to make life choices&#39;,&#39;Generosity&#39;,&#39;Perceptions of corruption&#39;)%&gt;%
+mutate(continent = continent_2018) -&gt; df_18
+#..2019
+df_2019%&gt;%
+dplyr::select(&#39;Country&#39;,&#39;Happiness score&#39;,&#39;GDP per capita&#39;,&#39;Social support&#39;,&#39;Healthy life expectancy&#39;,&#39;Freedom to make life choices&#39;,&#39;Generosity&#39;,&#39;Perceptions of corruption&#39;)%&gt;%
+mutate(continent = continent_2019) -&gt; df_19</code></pre>
+<p>Besides, we also want to combine all these four data frames. You can find the code in the ‘df_16-19.ipynb’ stored along with other data frames. We use python to do the combination.</p>
+<pre><code>import pandas as pd 
+import numpy as np
+df_16 = pd.read_csv(&quot;df_16.csv&quot;)
+df_17 = pd.read_csv(&#39;df_17.csv&#39;)
+df_18 = pd.read_csv(&#39;df_18.csv&#39;)
+df_19 = pd.read_csv(&#39;df_19.csv&#39;)
+df_16[&#39;year&#39;] = str(2016)
+df_17[&#39;year&#39;] = str(2017)
+df_18[&#39;year&#39;] = str(2018)
+df_19[&#39;year&#39;] = str(2019)
+df_all = df_16.append([df_17, df_18, df_19], sort = False)
+df_all.drop(df_all.columns[0], axis = 1, inplace = True)
+df_all.head()</code></pre>
+<p>Moreover, in each year, the number of countries is different. Since we want to see the increasing amount of happiness score for each country, we need to make sure all the countries exist in these four years. Also, we need to order by country and year so that each country will be aligned with increasing years.</p>
+<pre><code>select *
+from df16_19_all
+where country in (select country
+from df16_19_all
+group by country
+having COUNT(*) = 4)
+order by country,year</code></pre>
+<p>Last but not least, we also add six more columns in the df_all.csv. They are the percentage of each six factors within each happiness score. The code is following:</p>
+<pre><code>df_all%&gt;%
+mutate(percentage.GDP = GDP.per.capita/Happiness.score)</code></pre>
 
 </div>
             </section>
