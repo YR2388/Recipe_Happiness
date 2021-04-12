@@ -1,3 +1,4 @@
 # Interactive component
 
 
+The URL for the interactive graph is https://vizhub.com/YR2388/475c758eeb9148949d0ca741ff3ef519. We learned the method of creating a bar chart on D3 from this notebook: https://quip.com/gpbZAyy2Py7a. The plot allows the viewer to see the exact happiness score of a certain country by clicking on each bar. Due to our research interest, we present the top five happiest countries. We use Vizhub to share our interactive plot. It is a platform to share graphs and learn more about data visualization.
